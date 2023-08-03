@@ -15,20 +15,42 @@
 
     <div class="edit">
       <h4>Edit counter title:</h4>
-      <input v-model="counterData.title" type="text">
+      <input v-model="counterData.title" type="text" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive, computed } from "vue";
+// Import
 
+import {
+  reactive,
+  computed,
+  watch,
+  onMounted,
+} from "vue";
+
+// Title
 const appTitle = "My Ok Counter App";
 
+onMounted(() => {
+  console.log("Do some stuff related to title.")
+});
+
+// Counter
 const counterData = reactive({
   count: 0,
-  title: "My Counter"
+  title: "My Counter",
 });
+
+watch(
+  () => counterData.count,
+  (newCount, oldCount) => {
+    if (newCount === 20) {
+      alert("20!!!");
+    }
+  }
+);
 
 const oddOrEven = computed(() => {
   if (counterData.count % 2 === 0) return "even";
@@ -42,20 +64,44 @@ const increaseCounter = (amount, e) => {
 const decreaseCounter = (amount) => {
   counterData.count -= amount;
 };
+
+onMounted(() => {
+  console.log("Do some stuff related to counter.")
+});
+
 </script>
 
 <!--
+ 
 <script>
 export default {
+  data() {
+   return {
+    count: 0
+   }
+  },
   computed: {
     myComputedProperty() {
       // perform some logic based on data property
       return "my result"
     }
+  },
+  watch: {
+    count(newCount, oldCount) {
+      if (newCount === 20) alert("car")
+    }
+  },
+  mounted() {
+    // do staff when the component is loaded,
+    console.log("mounted")
+  },
+  unmounted() {
+    // do staff when the component is unloaded
+    console.log("unmounted")
   }
 }
 </script>
--->
+ -->
 
 <!--
 <script>
